@@ -4,7 +4,10 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import {Login} from './components/login'
 import {SignUp} from './components/signup'
+import {useAuth} from "./hooks/AuthProvider";
 function App() {
+  const { token, refresh, logIn, refreshTokens, logOut } = useAuth();
+
   return (
     <Router>
       <div className="App">
