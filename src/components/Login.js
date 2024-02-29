@@ -2,12 +2,12 @@ import {useAuth} from "../hooks/AuthProvider";
 import {useState} from "react";
 
 export const Login = () => {
-    const {login} = useAuth();
+    const {logIn} = useAuth();
     const [inputs, setInputs] = useState({
-        username: '',
+        email: '',
         password: ''
     })
-    const {username, password} = inputs;
+    const {email, password} = inputs;
 
     const onChange = e => {
         setInputs({...inputs, [e.target.name]: e.target.value});
@@ -15,7 +15,7 @@ export const Login = () => {
 
     const onSubmit = e => {
         e.preventDefault();
-        login(username, password);
+        logIn(email, password);
     }
     return (
         <form onSubmit={onSubmit}>
@@ -23,6 +23,7 @@ export const Login = () => {
             <div className="mb-3">
                 <label>Email address</label>
                 <input onChange={onChange}
+                       name="email"
                        type="email"
                        className="form-control"
                        placeholder="Enter email"
@@ -31,6 +32,7 @@ export const Login = () => {
             <div className="mb-3">
                 <label>Password</label>
                 <input onChange={onChange}
+                       name="password"
                        type="password"
                        className="form-control"
                        placeholder="Enter password"

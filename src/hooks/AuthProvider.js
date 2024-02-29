@@ -7,8 +7,8 @@ const AuthProvider = ({children}) => {
     const [token, setToken] = useState(Cookies.get('token'));
     const [refresh, setRefresh] = useState(Cookies.get('refresh'));
 
-    const logIn = async (e) => {
-        e.preventDefault();
+    const logIn = async (email, password) => {
+        console.log("in logIn", email, password);
         try {
             const response = await fetch('http://localhost:8000/api/token/', {
                 method: 'POST',
@@ -16,14 +16,15 @@ const AuthProvider = ({children}) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    username: e.target.username.value,
-                    password: e.target.password.value,
+                    email,
+                    password,
                 }),
             });
             const data = await response.json();
             if (data) {
                 Cookies.set('token', data.access);
                 Cookies.set('refresh', data.refresh);
+                console.log(data);
                 setToken(data.access);
                 setRefresh(data.refresh);
                 return true;
