@@ -1,4 +1,4 @@
-export const Signup = () => {
+export const Sign_up = () => {
     return (
         <form>
         <h3>Sign Up</h3>
@@ -8,11 +8,12 @@ export const Signup = () => {
             type="text"
             className="form-control"
             placeholder="First name"
+            required
           />
         </div>
         <div className="mb-3">
           <label>Last name</label>
-          <input type="text" className="form-control" placeholder="Last name" />
+          <input type="text" className="form-control" placeholder="Last name" required/>
         </div>
         <div className="mb-3">
           <label>Email address</label>
@@ -20,6 +21,7 @@ export const Signup = () => {
             type="email"
             className="form-control"
             placeholder="Enter email"
+            required
           />
         </div>
         <div className="mb-3">
@@ -28,6 +30,7 @@ export const Signup = () => {
             type="password"
             className="form-control"
             placeholder="Enter password"
+            required
           />
         </div>
         <div className="d-grid">

@@ -1,7 +1,7 @@
 import {useAuth} from "../hooks/AuthProvider";
 import {useState} from "react";
 
-export const Login = () => {
+export const Sign_In = () => {
     const {logIn} = useAuth();
     const [inputs, setInputs] = useState({
         email: '',
@@ -27,6 +27,7 @@ export const Login = () => {
                        type="email"
                        className="form-control"
                        placeholder="Enter email"
+                       required
                 />
             </div>
             <div className="mb-3">
@@ -36,6 +37,7 @@ export const Login = () => {
                        type="password"
                        className="form-control"
                        placeholder="Enter password"
+                       required
                 />
             </div>
             <div className="mb-3">
