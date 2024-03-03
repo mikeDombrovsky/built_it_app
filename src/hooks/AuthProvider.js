@@ -7,6 +7,8 @@ const AuthProvider = ({children}) => {
     const [token, setToken] = useState(()=> Cookies.get('token') ? Cookies.get('token') : null);
     const [refresh, setRefresh] = useState(() => Cookies.get('refresh') ? Cookies.get('refresh') : null);
     const [loading, setLoading] = useState(false);
+
+
     const logIn = async (email, password) => {
         console.log("in logIn", email, password);
         try {
@@ -78,15 +80,16 @@ const AuthProvider = ({children}) => {
             if (data.access && data.refresh) {
                 Cookies.set('token', data.access);
                 Cookies.set('refresh', data.refresh);
-                //tokens are not being set in state, why?
                 setToken(data.access);
                 setRefresh(data.refresh);
             } else {
                 console.log(data);
+                logOut()
             }
 
         }).catch(error => {
             console.error('Error:', error);
+            logOut()
         })
 
     }
@@ -104,7 +107,7 @@ const AuthProvider = ({children}) => {
             if (refresh){
                 refreshTokens()
             }
-        }, 1000 * 60 * 8)
+        }, 1000 * 60 * 55)
         return () => clearInterval(interval)
     }, [token, refresh, loading])
 
