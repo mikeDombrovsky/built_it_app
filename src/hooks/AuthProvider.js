@@ -4,9 +4,37 @@ import Cookies from 'js-cookie';
 const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
-    const [token, setToken] = useState(()=> Cookies.get('token') ? Cookies.get('token') : null);
+    const [token, setToken] = useState(() => Cookies.get('token') ? Cookies.get('token') : null);
     const [refresh, setRefresh] = useState(() => Cookies.get('refresh') ? Cookies.get('refresh') : null);
     const [loading, setLoading] = useState(false);
+
+
+    const register = async (username = null, email, password) => {
+        try {
+            const response = await fetch('http://localhost:8000/api/register/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username,
+                    email,
+                    password,
+                }),
+            });
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data);
+                await logIn(email, password)
+            } else {
+                console.log("register failed");
+                const data = await response.json();
+                alert(JSON.stringify(data))
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 
 
     const logIn = async (email, password) => {
@@ -95,16 +123,30 @@ const AuthProvider = ({children}) => {
     }
 
     const logOut = () => {
+
+        fetch('http://localhost:8000/api/token/logout/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                refresh: refresh,
+            }),
+        }).then(response => {
+            console.log(response.status);
+        }).catch(error => {
+            console.error('Error:', error);
+        })
+
         Cookies.remove('token');
         Cookies.remove('refresh');
         setToken(null);
         setRefresh(null);
-        console.log(token, refresh)
     };
 
     useEffect(() => {
-        let interval = setInterval(()=> {
-            if (refresh){
+        let interval = setInterval(() => {
+            if (refresh) {
                 refreshTokens()
             }
         }, 1000 * 60 * 55)
@@ -112,7 +154,7 @@ const AuthProvider = ({children}) => {
     }, [token, refresh, loading])
 
     return (
-        <AuthContext.Provider value={{token, refresh, logIn, refreshTokens, verifyToken, logOut}}>
+        <AuthContext.Provider value={{token, refresh, register, logIn, refreshTokens, verifyToken, logOut}}>
             {children}
         </AuthContext.Provider>
     );
