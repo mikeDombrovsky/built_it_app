@@ -58,7 +58,7 @@ export const Sign_In = () => {
                 </button>
             </div>
             <p className="forgot-password text-right">
-                Forgot <a href="#">password?</a>
+                Forgot <a href="/change-password">password?</a>
             </p>
         </form>
     )

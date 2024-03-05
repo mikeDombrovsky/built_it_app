@@ -7,6 +7,7 @@ import {Sign_up} from './components/Sign_up'
 import {useAuth} from "./hooks/AuthProvider";
 import {useEffect} from "react";
 import logo from './logo.png';
+import {ChangePassword} from "./components/ChangePassword";
 
 function App() {
     const {token, refresh, refreshTokens, verifyToken, logOut} = useAuth();
@@ -57,6 +58,7 @@ function App() {
                             <Route exact path="/" element={<h1>Home</h1>}/>
                             <Route path="/sign-in" element={!token ? <Sign_In/> : <Navigate to="/profile"/>}/>
                             <Route path="/sign-up" element={!token ? <Sign_up/> : <Navigate to="/profile"/>}/>
+                            <Route path="/change-password" element={<ChangePassword/>}/>
                         </Routes>
                     </div>
                 </div>
