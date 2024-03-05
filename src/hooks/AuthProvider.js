@@ -60,9 +60,11 @@ const AuthProvider = ({children}) => {
                 return true;
             } else {
                 console.log("login failed");
+                alert("Invalid email or password")
             }
         } catch (error) {
             console.error('Error:', error);
+            alert("Oops, something went wrong")
         }
         return false;
     };
@@ -154,7 +156,15 @@ const AuthProvider = ({children}) => {
     }, [token, refresh, loading])
 
     return (
-        <AuthContext.Provider value={{token, refresh, register, logIn, refreshTokens, verifyToken, logOut}}>
+        <AuthContext.Provider value={{
+            token,
+            refresh,
+            register,
+            logIn,
+            refreshTokens,
+            verifyToken,
+            logOut
+        }}>
             {children}
         </AuthContext.Provider>
     );

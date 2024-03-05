@@ -21,7 +21,7 @@ export const ChangePassword = () => {
     }
     return (
         <form onSubmit={onSubmit}>
-            <h3>Sign In</h3>
+            <h3>Password reset</h3>
             <div className="mb-3">
                 <label>Email address</label>
                 <input onChange={onChange}

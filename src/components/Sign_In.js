@@ -1,13 +1,23 @@
 import {useAuth} from "../hooks/AuthProvider";
-import {useState} from "react";
+import {useEffect, useState, useRef} from "react";
+import Cookies from "js-cookie";
 
 export const Sign_In = () => {
     const {logIn} = useAuth();
+    const [remembered_email, setRememberedEmail] = useState(Cookies.get('email') ? Cookies.get('email') : null);
     const [inputs, setInputs] = useState({
-        email: '',
+        email: remembered_email ? remembered_email : '',
         password: ''
     })
+    let remember_checkbox = useRef(remembered_email ? true : false);
     const {email, password} = inputs;
+
+    useEffect(() => {
+        if (remembered_email) {
+            remember_checkbox.current.checked = true;
+            setInputs({...inputs, email: remembered_email})
+        }
+    }, []);
 
     const onChange = e => {
         setInputs({...inputs, [e.target.name]: e.target.value});
@@ -15,6 +25,13 @@ export const Sign_In = () => {
 
     const onSubmit = e => {
         e.preventDefault();
+        if (remember_checkbox.current.checked) {
+            setRememberedEmail(email);
+            Cookies.set('email', email);
+        } else {
+            setRememberedEmail(null);
+            Cookies.remove('email');
+        }
         logIn(email, password);
     }
     return (
@@ -28,6 +45,7 @@ export const Sign_In = () => {
                        className="form-control"
                        placeholder="Enter email"
                        required
+                       value={email}
                 />
             </div>
             <div className="mb-3">
@@ -42,10 +60,11 @@ export const Sign_In = () => {
             </div>
             <div className="mb-3">
                 <div className="custom-control custom-checkbox">
-                    <input
+                    <input ref={remember_checkbox}
                         type="checkbox"
                         className="custom-control-input"
                         id="customCheck1"
+                        name="remember_me"
                     />
                     <label className="custom-control-label" htmlFor="customCheck1">
                         Remember me
