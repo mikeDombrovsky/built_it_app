@@ -8,10 +8,13 @@ export const Profile = () => {
         <div className="container rounded bg-white mt-5 mb-5">
             <div className="row">
                 <div className="col-md-3 border-right">
-                    <div className="d-flex flex-column align-items-center text-center p-3 py-5"><img
-                        className="rounded-circle mt-5" width="150px"
-                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"/><span
-                        class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span>
+                    <div className="d-flex flex-column align-items-center text-center p-3 py-5">
+                        <img
+                            className="rounded-circle mt-5" width="150px"
+                            src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                        />
+                        <span className="font-weight-bold">Name Surname</span>
+                        <span className="text-black-50">example@mail.com</span>
                     </div>
                 </div>
                 <div className="col-md-5 border-right">
@@ -24,63 +27,45 @@ export const Profile = () => {
                                 <label className="labels">Name</label>
                                 <input type="text"
                                        className="form-control"
-                                       placeholder="first name"
-                                       value=""/></div>
+                                       placeholder="First name"
+                                       value=""/>
+                            </div>
                             <div className="col-md-6">
                                 <label className="labels">Surname</label>
                                 <input type="text"
                                        className="form-control"
                                        value=""
-                                       placeholder="surname"/>
+                                       placeholder="Surname"/>
                             </div>
                         </div>
                         <div className="row mt-3">
                             <div className="col-md-12">
-                                <label className="labels">Mobile Number</label>
+                                <label className="labels">Title</label>
                                 <input type="text"
                                        className="form-control"
-                                       placeholder="enter phone number"
+                                       placeholder="Enter title of your profile if needed"
                                        value=""/>
                             </div>
                             <div className="col-md-12">
-                                <label className="labels">Address Line 1</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="enter address line 1"
-                                    value=""/>
-                            </div>
-                            <div className="col-md-12">
-                                <label className="labels">Address Line 2</label>
-                                <input
-                                    type="text" className="form-control" placeholder="enter address line 2" value=""/>
-                            </div>
-                            <div className="col-md-12">
-                                <label className="labels">Postcode</label>
+                                <label className="labels">Mobile Number</label>
                                 <input type="text"
                                        className="form-control"
-                                       placeholder="enter address line 2"
-                                       value=""/></div>
+                                       placeholder="Enter phone number"
+                                       value=""/>
+                            </div>
                             <div className="col-md-12">
-                                <label className="labels">State</label><input type="text"
-                                                                              className="form-control"
-                                                                              placeholder="enter address line 2"
-                                                                              value=""/></div>
+                                <label className="labels">City</label>
+                                <input type="text"
+                                       className="form-control"
+                                       placeholder="Enter your city"
+                                       value=""/>
+                            </div>
                             <div className="col-md-12">
-                                <label className="labels">Area</label><input type="text"
-                                                                             className="form-control"
-                                                                             placeholder="enter address line 2"
-                                                                             value=""/></div>
-                            <div className="col-md-12">
-                                <label className="labels">Email ID</label><input type="text"
-                                                                                 className="form-control"
-                                                                                 placeholder="enter email id"
-                                                                                 value=""/></div>
-                            <div className="col-md-12">
-                                <label className="labels">Education</label><input type="text"
-                                                                                  className="form-control"
-                                                                                  placeholder="education"
-                                                                                  value=""/>
+                                <label className="labels">Occupation</label>
+                                <input type="text"
+                                       className="form-control"
+                                       placeholder="Enter your occupation"
+                                       value=""/>
                             </div>
                         </div>
                         <div className="row mt-3">
@@ -89,7 +74,8 @@ export const Profile = () => {
                                 <input type="text"
                                        className="form-control"
                                        placeholder="country"
-                                       value=""/></div>
+                                       value=""/>
+                            </div>
                             <div className="col-md-6">
                                 <label className="labels">State/Region</label>
                                 <input type="text"
@@ -105,23 +91,21 @@ export const Profile = () => {
                 </div>
                 <div className="col-md-4">
                     <div className="p-3 py-5">
-                        <div className="d-flex justify-content-between align-items-center experience">
-                            <span>Edit Experience</span>
-                            <span
-                                className="border px-3 p-1 add-experience">
-                                <i className="fa fa-plus"></i>
-                                &nbsp;Experience</span>
+                        <div className="d-flex justify-content-between align-items-center experience mb-3">
+                            <h4 className="text-right">Details</h4>
                         </div>
-                        <br>
-                            <div className="col-md-12">
-                                <label className="labels">Experience in Designing</label>
-                                <input
-                                    type="text" className="form-control" placeholder="experience" value=""/></div>
-                        </br>
+
                         <div className="col-md-12">
-                            <label className="labels">Additional Details</label>
+                            <label className="labels">Bio</label>
+                            <textarea
+                                className="form-control" placeholder="Bio" value="" rows="4" cols="30"/>
+                        </div>
+                        <br/>
+                        <div className="col-md-12">
+                            <label className="labels">Profile image</label>
                             <input
-                                type="text" className="form-control" placeholder="additional details" value=""/></div>
+                                type="file" className="form-control" placeholder="profile image" />
+                        </div>
                     </div>
                 </div>
             </div>

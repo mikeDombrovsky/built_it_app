@@ -1,4 +1,3 @@
-
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import {BrowserRouter as Router, Routes, Route, Link, Navigate} from 'react-router-dom'
@@ -8,6 +7,7 @@ import {useAuth} from "./hooks/AuthProvider";
 import {useEffect} from "react";
 import logo from './logo.png';
 import {ChangePassword} from "./components/ChangePassword";
+import {Profile} from "./components/Profile";
 
 function App() {
     const {token, refresh, refreshTokens, verifyToken, logOut} = useAuth();
@@ -51,17 +51,15 @@ function App() {
                         </div>
                     </div>
                 </nav>
-                <div className="auth-wrapper">
-                    <div className="auth-inner">
-                        <Routes>
-                            <Route exact path="/profile" element={token ? <h1>Profile</h1> : <Sign_In/>}/>
-                            <Route exact path="/" element={<h1>Home</h1>}/>
-                            <Route path="/sign-in" element={!token ? <Sign_In/> : <Navigate to="/profile"/>}/>
-                            <Route path="/sign-up" element={!token ? <Sign_up/> : <Navigate to="/profile"/>}/>
-                            <Route path="/change-password" element={<ChangePassword/>}/>
-                        </Routes>
-                    </div>
-                </div>
+
+                <Routes>
+                    <Route exact path="/profile" element={token ? <Profile/> : <Navigate to="/sign-in"/>}/>
+                    <Route exact path="/" element={<h1>Home</h1>}/>
+                    <Route path="/sign-in" element={!token ? <Sign_In/> : <Navigate to="/profile"/>}/>
+                    <Route path="/sign-up" element={!token ? <Sign_up/> : <Navigate to="/profile"/>}/>
+                    <Route path="/change-password" element={<ChangePassword/>}/>
+                </Routes>
+
             </div>
         </Router>
     );
