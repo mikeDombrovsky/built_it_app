@@ -38,7 +38,7 @@ const AuthProvider = ({children}) => {
 
 
     const logIn = async (email, password) => {
-        console.log("in logIn", email, password);
+
         try {
             const response = await fetch('http://localhost:8000/api/token/', {
                 method: 'POST',

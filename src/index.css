@@ -7,6 +7,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  caret-color: transparent;
+}
+
+input, textarea{
+    caret-color: #e7e7e7;
 }
 
 code {
