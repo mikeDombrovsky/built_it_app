@@ -8,53 +8,19 @@ import {useEffect} from "react";
 import logo from './logo.png';
 import {ChangePassword} from "./components/ChangePassword";
 import {Profile} from "./components/Profile";
+import {Home} from "./components/Home";
+import {NavBar} from "./components/NavBar";
 
 function App() {
-    const {token, refresh, refreshTokens, verifyToken, logOut} = useAuth();
+    const {token} = useAuth();
 
     return (
         <Router>
             <div className="App">
-                <nav className="navbar navbar-expand-lg navbar-light fixed-top">
-                    <div className="container">
-                        <Link className="navbar-brand" to={'/'}>
-                            <img src={logo} alt="logo" width="200px"/>
-                        </Link>
-                        <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-                            <ul className="navbar-nav ml-auto">
-                                {token ? (
-                                    <>
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to={'/profile'}>
-                                                Profile
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <button className="nav-link" onClick={logOut}>Log out</button>
-                                        </li>
-                                    </>
-                                ) : (
-                                    <>
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to={'/sign-in'}>
-                                                Sign in
-                                            </Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to={'/sign-up'}>
-                                                Sign up
-                                            </Link>
-                                        </li>
-                                    </>
-                                )}
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-
+                <NavBar/>
                 <Routes>
                     <Route exact path="/profile" element={token ? <Profile/> : <Navigate to="/sign-in"/>}/>
-                    <Route exact path="/" element={<h1>Home</h1>}/>
+                    <Route exact path="/" element={<Home/>}/>
                     <Route path="/sign-in" element={!token ? <Sign_In/> : <Navigate to="/profile"/>}/>
                     <Route path="/sign-up" element={!token ? <Sign_up/> : <Navigate to="/profile"/>}/>
                     <Route path="/change-password" element={<ChangePassword/>}/>
