@@ -21,15 +21,15 @@ export const NavBar = () => {
                             <>
                                 <li className="nav-item">
                                     <Link className="nav-link" to={'/find-job'}>
-                                        Find job
+                                        Find a client
                                     </Link>
                                 </li>
                             </>
                             {token ? (
                                 <>
                                     <li className="nav-item">
-                                        <Link className="nav-link" to={'/create-job'}>
-                                            Create job
+                                        <Link className="nav-link" to={'/create-task'}>
+                                            Find a contractor
                                         </Link>
                                     </li>
                                     <li className="nav-item">
