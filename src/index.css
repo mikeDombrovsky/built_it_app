@@ -14,10 +14,10 @@ input, textarea {
     caret-color: #e7e7e7;
 }
 
-input, textarea::placeholder {
-    color: rgba(213, 213, 213, 0.5);
-    opacity: 1;
-}
+/*form input::placeholder, form textarea::placeholder {*/
+/*    color: rgba(213, 213, 213, 0.5) !important;*/
+/*    opacity: 1 !important;*/
+/*}*/
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

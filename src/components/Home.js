@@ -8,12 +8,12 @@ export const Home = () => {
                         <h1>We will make your life much easier!</h1>
                         <p>Just make a task and we will help you to find the best construction professional for your
                             personal needs.</p>
-                        <form className="form-inline d-flex flex-row">
+                        <form className="form-inline d-flex flex-row m-2">
                             <input className="form-control mr-sm-2" type="search" placeholder="Service or professional"
                                    aria-label="Search"/>
-                                <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                <button className="btn btn-outline-success m-2 my-sm-0" type="submit">Search</button>
                         </form>
-                        <img width="80%" src={worker_img} alt='construction worker'/>
+                        <img className="rounded w-100"  src={worker_img} alt='construction worker'/>
                     </div>
                 </div>
             </div>

@@ -22,9 +22,15 @@ export const Profile = () => {
         setInputs({...inputs, [e.target.name]: e.target.value});
     }
 
-    const onSubmit = e => {
+    const onFileChange = e => {
+        // setInputs({...inputs, [e.target.name]: e.target.files[0]});
+        console.log(e.target.files[0]);
+    }
+
+    const onSubmit = async e => {
         // e.preventDefault();
         console.log(inputs);
+
     }
 
     return (
@@ -156,10 +162,11 @@ export const Profile = () => {
                         <div className="col-md-12">
                             <label className="labels">Profile image</label>
                             <input
-                                onChange={onChange}
+                                onChange={onFileChange}
                                 type="file"
                                 name="profile_image"
                                 value={profile_image}
+                                accept="image/*"
                                 className="form-control"
                                 placeholder="profile image"/>
                         </div>
