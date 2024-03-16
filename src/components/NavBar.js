@@ -20,7 +20,7 @@ export const NavBar = () => {
                         <ul className="navbar-nav">
                             <>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to={'/find-job'}>
+                                    <Link className="nav-link" to={'/tasks'}>
                                         Find a client
                                     </Link>
                                 </li>

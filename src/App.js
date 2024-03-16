@@ -24,6 +24,9 @@ function App() {
                     <Route path="/sign-in" element={!token ? <Sign_In/> : <Navigate to="/profile"/>}/>
                     <Route path="/sign-up" element={!token ? <Sign_up/> : <Navigate to="/profile"/>}/>
                     <Route path="/change-password" element={<ChangePassword/>}/>
+                    <Route path={'/tasks'} element={token ? <p className="m-5 p-5">tasks</p> : <Navigate to="/sign-in"/>}/>
+                    <Route path={'/create-task'} element={<p className="m-5 p-5">create task</p>}/>
+                    <Route path={'*'} element={<Navigate to="/"/>}/>
                 </Routes>
 
             </div>

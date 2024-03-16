@@ -1,8 +1,8 @@
 import {useAuth} from "../hooks/AuthProvider";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export const Profile = () => {
-    const {token, refresh, refreshTokens, verifyToken, logOut} = useAuth();
+    const {BASE_URL, token, refresh, refreshTokens, verifyToken, logOut} = useAuth();
 
     const [inputs, setInputs] = useState({
         name: '',
@@ -13,18 +13,66 @@ export const Profile = () => {
         country: '',
         region: '',
         bio: '',
-        profile_image: ''
+        image_name: 'default.jpg',
+        image_src: BASE_URL + 'media/profile_pics/default.jpg',
     })
 
-    const {name, surname, title, mobile_number, city, country, region, bio, profile_image} = inputs;
+    const {name, surname, title, mobile_number, city, country, region, bio, image_src, image_name} = inputs;
+
+    useEffect( () => {
+        if (token) {
+            verifyToken(token);
+            fetchProfile();
+        }
+
+
+    }, []);
+
+    const fetchProfile = async () => {
+        let response = await fetch(BASE_URL + 'api/profile/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        })
+        if(response.status === 200) {
+            let data = await response.json();
+            console.log(
+                data
+            )
+            setInputs({
+                name: data.name,
+                surname: data.surname,
+                title: data.title,
+                mobile_number: data.mobile_number,
+                city: data.city,
+                country: data.country,
+                region: data.region,
+                bio: data.bio,
+                image_name: data.image,
+                image_src: BASE_URL + data.image,
+
+            })
+        } else {
+            console.log(response.status);
+        }
+    }
 
     const onChange = e => {
         setInputs({...inputs, [e.target.name]: e.target.value});
     }
 
     const onFileChange = e => {
-        // setInputs({...inputs, [e.target.name]: e.target.files[0]});
-        console.log(e.target.files[0]);
+        setInputs({
+            ...inputs,
+            [e.target.name]: URL.createObjectURL(e.target.files[0]),
+            image_name: e.target.files[0].name
+        });
+        console.log(image_src, image_name, e.target.files[0]);
+        let formData = new FormData();
+        formData.append('profile_image', e.target.files[0]);
+        console.log(formData);
     }
 
     const onSubmit = async e => {
@@ -42,7 +90,7 @@ export const Profile = () => {
                     <div className="d-flex flex-column align-items-center text-center p-3 py-5">
                         <img
                             className="rounded-circle mt-5" width="150px"
-                            src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                            src={image_src}
                         />
                         <span className="font-weight-bold">Name Surname</span>
                         <span className="text-black-50">example@mail.com</span>
@@ -63,6 +111,7 @@ export const Profile = () => {
                                     placeholder="First name"
                                     value={name}
                                     name="name"
+                                    required
                                 />
                             </div>
                             <div className="col-md-6">
@@ -99,6 +148,7 @@ export const Profile = () => {
                                     placeholder="Enter phone number like 058-456-7890"
                                     value={mobile_number}
                                     name="mobile_number"
+                                    required
                                 />
                             </div>
                             <div className="col-md-12">
@@ -138,7 +188,9 @@ export const Profile = () => {
                             </div>
                         </div>
                         <div className="mt-5 text-center">
-                            <button className="btn btn-primary profile-button" type="button" onClick={onSubmit}>Save Profile</button>
+                            <button className="btn btn-primary profile-button" type="button" onClick={onSubmit}>Save
+                                Profile
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -165,14 +217,14 @@ export const Profile = () => {
                                 onChange={onFileChange}
                                 type="file"
                                 name="profile_image"
-                                value={profile_image}
                                 accept="image/*"
                                 className="form-control"
                                 placeholder="profile image"/>
                         </div>
                     </div>
                 </div>
-                <p>*To become a builder you need to fill all these fields for verification. For clients it's not required but highly recommended</p>
+                <p>*To become a builder you need to fill all these fields for verification. For clients it's not
+                    required but highly recommended</p>
             </div>
         </div>
     )

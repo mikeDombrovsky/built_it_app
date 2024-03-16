@@ -24,8 +24,6 @@ const AuthProvider = ({children}) => {
                 }),
             });
             if (response.ok) {
-                const data = await response.json();
-                console.log(data);
                 await logIn(email, password)
             } else {
                 console.log("register failed");
@@ -39,7 +37,6 @@ const AuthProvider = ({children}) => {
 
 
     const logIn = async (email, password) => {
-
         try {
             const response = await fetch(BASE_URL + 'api/token/', {
                 method: 'POST',
@@ -55,7 +52,6 @@ const AuthProvider = ({children}) => {
                 const data = await response.json();
                 Cookies.set('token', data.access);
                 Cookies.set('refresh', data.refresh);
-                console.log(data);
                 setToken(data.access);
                 setRefresh(data.refresh);
                 return true;
@@ -81,10 +77,14 @@ const AuthProvider = ({children}) => {
                     token: token,
                 }),
             });
-            const data = await response.json();
-            if (data) {
-                console.log(data);
+            if (response.ok) {
+                console.log("token verified");
+                return true;
+            } else {
+                console.log("token verification failed");
+                refreshTokens()
             }
+
         } catch (error) {
             console.error('Error:', error);
         }
@@ -126,7 +126,6 @@ const AuthProvider = ({children}) => {
     }
 
     const logOut = () => {
-
         fetch(BASE_URL + 'api/token/logout/', {
             method: 'POST',
             headers: {
@@ -158,6 +157,7 @@ const AuthProvider = ({children}) => {
 
     return (
         <AuthContext.Provider value={{
+            BASE_URL,
             token,
             refresh,
             register,
