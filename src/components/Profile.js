@@ -8,18 +8,19 @@ export const Profile = () => {
         name: '',
         surname: '',
         title: '',
-        mobile_number: '',
+        phone_number: '',
         city: '',
         country: '',
         region: '',
         bio: '',
         image_name: 'default.jpg',
         image_src: BASE_URL + 'media/profile_pics/default.jpg',
+        image_file: null
     })
 
-    const {name, surname, title, mobile_number, city, country, region, bio, image_src, image_name} = inputs;
+    const {name, surname, title, phone_number, city, country, region, bio, image_src, image_name, image_file} = inputs;
 
-    useEffect( () => {
+    useEffect(() => {
         if (token) {
             verifyToken(token);
             fetchProfile();
@@ -36,23 +37,22 @@ export const Profile = () => {
                 'Authorization': 'Bearer ' + token
             }
         })
-        if(response.status === 200) {
+        if (response.status === 200) {
             let data = await response.json();
             console.log(
                 data
             )
-            setInputs({
+            setInputs( {...inputs,
                 name: data.name,
                 surname: data.surname,
                 title: data.title,
-                mobile_number: data.mobile_number,
+                phone_number: data.phone_number,
                 city: data.city,
                 country: data.country,
                 region: data.region,
                 bio: data.bio,
                 image_name: data.image,
                 image_src: BASE_URL + data.image,
-
             })
         } else {
             console.log(response.status);
@@ -66,24 +66,49 @@ export const Profile = () => {
     const onFileChange = e => {
         setInputs({
             ...inputs,
-            [e.target.name]: URL.createObjectURL(e.target.files[0]),
+            image_file: e.target.files[0],
             image_name: e.target.files[0].name
         });
-        console.log(image_src, image_name, e.target.files[0]);
-        let formData = new FormData();
-        formData.append('profile_image', e.target.files[0]);
-        console.log(formData);
+        console.log('file is ', e.target.files[0]);
     }
 
     const onSubmit = async e => {
-        // e.preventDefault();
+        e.preventDefault();
         console.log(inputs);
+        const formData = new FormData();
+        if (image_file) {
+            formData.append('image', image_file);
+        }
+        formData.append('name', name);
+        formData.append('surname', surname);
+        formData.append('title', title);
+        formData.append('phone_number', phone_number);
+        formData.append('city', city);
+        formData.append('country', country);
+        formData.append('region', region);
+        formData.append('bio', bio);
+        console.log(formData);
+
+        let response = await fetch(BASE_URL + 'api/profile/', {
+            method: 'PUT',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+            },
+            body: formData
+        })
+        if (response.status === 200) {
+            let data = await response.json();
+            console.log(data);
+            await fetchProfile();
+        } else {
+            console.log(response.status);
+        }
 
     }
 
     return (
 
-        <div className="container rounded bg-white mt-5 mb-5">
+        <form onSubmit={onSubmit} className="container rounded bg-white mt-5 mb-5">
             <div className="row">
 
                 <div className="col-md-3 border-right">
@@ -146,8 +171,8 @@ export const Profile = () => {
                                     pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                                     className="form-control"
                                     placeholder="Enter phone number like 058-456-7890"
-                                    value={mobile_number}
-                                    name="mobile_number"
+                                    value={phone_number}
+                                    name="phone_number"
                                     required
                                 />
                             </div>
@@ -188,9 +213,7 @@ export const Profile = () => {
                             </div>
                         </div>
                         <div className="mt-5 text-center">
-                            <button className="btn btn-primary profile-button" type="button" onClick={onSubmit}>Save
-                                Profile
-                            </button>
+                            <input type='submit' className="btn btn-primary profile-button" value="Save profile"/>
                         </div>
                     </div>
                 </div>
@@ -219,13 +242,14 @@ export const Profile = () => {
                                 name="profile_image"
                                 accept="image/*"
                                 className="form-control"
-                                placeholder="profile image"/>
+                                placeholder="profile image"
+                            />
                         </div>
                     </div>
                 </div>
                 <p>*To become a builder you need to fill all these fields for verification. For clients it's not
                     required but highly recommended</p>
             </div>
-        </div>
+        </form>
     )
 }
