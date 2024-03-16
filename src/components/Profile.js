@@ -11,14 +11,26 @@ export const Profile = () => {
         phone_number: '',
         city: '',
         country: '',
-        region: '',
+        state_region: '',
         bio: '',
         image_name: 'default.jpg',
         image_src: BASE_URL + 'media/profile_pics/default.jpg',
         image_file: null
     })
 
-    const {name, surname, title, phone_number, city, country, region, bio, image_src, image_name, image_file} = inputs;
+    const {
+        name,
+        surname,
+        title,
+        phone_number,
+        city,
+        country,
+        state_region,
+        bio,
+        image_src,
+        image_name,
+        image_file
+    } = inputs;
 
     useEffect(() => {
         if (token) {
@@ -42,14 +54,15 @@ export const Profile = () => {
             console.log(
                 data
             )
-            setInputs( {...inputs,
+            setInputs({
+                ...inputs,
                 name: data.name,
                 surname: data.surname,
                 title: data.title,
                 phone_number: data.phone_number,
                 city: data.city,
                 country: data.country,
-                region: data.region,
+                state_region: data.state_region,
                 bio: data.bio,
                 image_name: data.image,
                 image_src: BASE_URL + data.image,
@@ -85,7 +98,7 @@ export const Profile = () => {
         formData.append('phone_number', phone_number);
         formData.append('city', city);
         formData.append('country', country);
-        formData.append('region', region);
+        formData.append('state_region', state_region);
         formData.append('bio', bio);
         console.log(formData);
 
@@ -116,9 +129,9 @@ export const Profile = () => {
                         <img
                             className="rounded-circle mt-5" width="150px"
                             src={image_src}
-                        />
-                        <span className="font-weight-bold">Name Surname</span>
-                        <span className="text-black-50">example@mail.com</span>
+                            alt="profile"/>
+                        <span className="font-weight-bold">{name === "" ? "Name" : name} {surname === "" ? "Surname" : surname}</span>
+                        <span className="text-black-50">{phone_number === "" ? "Phone number is not set" : phone_number}</span>
                     </div>
                 </div>
                 <div className="col-md-5 border-right">
@@ -206,9 +219,9 @@ export const Profile = () => {
                                     onChange={onChange}
                                     type="text"
                                     className="form-control"
-                                    value={region}
+                                    value={state_region}
                                     placeholder="region"
-                                    name="region"
+                                    name="state_region"
                                 />
                             </div>
                         </div>
