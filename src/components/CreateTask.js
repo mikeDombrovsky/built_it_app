@@ -1,48 +1,33 @@
 import {useAuth} from "../hooks/AuthProvider";
 import {useEffect, useState} from "react";
 
-export const Profile = () => {
-    const {BASE_URL, token, verifyToken} = useAuth();
+export const CreateTask = () => {
+    const {BASE_URL, token, refresh, refreshTokens, verifyToken, logOut} = useAuth();
 
     const [inputs, setInputs] = useState({
-        name: '',
-        surname: '',
         title: '',
         phone_number: '',
         city: '',
         country: '',
         state_region: '',
-        bio: '',
-        image_name: 'default.jpg',
-        image_src: BASE_URL + 'media/profile_pics/default.jpg',
-        image_file: null
+        desc: '',
+        image_srcs: [],
+        image_files: []
     })
 
     const {
-        name,
-        surname,
         title,
         phone_number,
         city,
         country,
         state_region,
-        bio,
-        image_src,
-        image_name,
-        image_file
+        desc,
+        image_files
     } = inputs;
 
-    useEffect(() => {
-        if (token) {
-            verifyToken(token);
-            fetchProfile();
-        }
 
-
-    }, []);
-
-    const fetchProfile = async () => {
-        let response = await fetch(BASE_URL + 'api/profile/', {
+    const fetchMyTasks = async () => {
+        let response = await fetch(BASE_URL + 'api/tasks/', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -56,14 +41,11 @@ export const Profile = () => {
             )
             setInputs({
                 ...inputs,
-                name: data.name,
-                surname: data.surname,
                 title: data.title,
                 phone_number: data.phone_number,
                 city: data.city,
                 country: data.country,
                 state_region: data.state_region,
-                bio: data.bio,
                 image_name: data.image,
                 image_src: BASE_URL + data.image,
             })
@@ -79,27 +61,27 @@ export const Profile = () => {
     const onFileChange = e => {
         setInputs({
             ...inputs,
-            image_file: e.target.files[0],
-            image_name: e.target.files[0].name
+            image_files: e.target.files
         });
-        console.log('file is ', e.target.files[0], image_name)
+        console.log('files ', e.target.files);
     }
 
     const onSubmit = async e => {
         e.preventDefault();
         console.log(inputs);
         const formData = new FormData();
-        if (image_file) {
-            formData.append('image', image_file);
+        if (image_files) {
+            for (let i = 0; i < image_files.length; i++) {
+                formData.append('image', image_files[i]);
+            }
         }
-        formData.append('name', name);
-        formData.append('surname', surname);
+
         formData.append('title', title);
         formData.append('phone_number', phone_number);
         formData.append('city', city);
         formData.append('country', country);
         formData.append('state_region', state_region);
-        formData.append('bio', bio);
+        formData.append('desc', desc);
         console.log(formData);
 
         let response = await fetch(BASE_URL + 'api/profile/', {
