@@ -54,6 +54,10 @@ export const Profile = () => {
             console.log(
                 data
             )
+            let src =BASE_URL + data.image;
+            if(BASE_URL[BASE_URL.length - 1] === '/'){
+                src = BASE_URL.slice(0, -1) + data.image;
+            }
             setInputs({
                 ...inputs,
                 name: data.name,
@@ -65,9 +69,9 @@ export const Profile = () => {
                 state_region: data.state_region,
                 bio: data.bio,
                 image_name: data.image,
-                image_src: BASE_URL + data.image,
+                image_src: src,
             })
-            console.log(BASE_URL, data.image);
+            console.log(BASE_URL, data.image, src);
         } else {
             console.log(response.status);
         }
