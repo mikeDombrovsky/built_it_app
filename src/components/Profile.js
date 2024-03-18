@@ -67,7 +67,7 @@ export const Profile = () => {
                 image_name: data.image,
                 image_src: BASE_URL + data.image,
             })
-            console.log(BASE_URL + data.image);
+            console.log(BASE_URL, data.image);
         } else {
             console.log(response.status);
         }
