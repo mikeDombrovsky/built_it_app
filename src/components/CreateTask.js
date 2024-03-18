@@ -12,7 +12,7 @@ export const CreateTask = () => {
         state_region: '',
         desc: '',
         image_srcs: [],
-        image_files: []
+        task_images: []
     })
 
     const {
@@ -22,7 +22,7 @@ export const CreateTask = () => {
         country,
         state_region,
         desc,
-        image_files
+        task_images
     } = inputs;
 
 
@@ -70,9 +70,9 @@ export const CreateTask = () => {
         e.preventDefault();
         console.log(inputs);
         const formData = new FormData();
-        if (image_files) {
-            for (let i = 0; i < image_files.length; i++) {
-                formData.append('image', image_files[i]);
+        if (task_images) {
+            for (let i = 0; i < task_images.length; i++) {
+                formData.append('image', task_images[i]);
             }
         }
 
@@ -84,7 +84,7 @@ export const CreateTask = () => {
         formData.append('desc', desc);
         console.log(formData);
 
-        let response = await fetch(BASE_URL + 'api/profile/', {
+        let response = await fetch(BASE_URL + 'api/task/', {
             method: 'PUT',
             headers: {
                 'Authorization': 'Bearer ' + token,
@@ -94,7 +94,7 @@ export const CreateTask = () => {
         if (response.status === 200) {
             let data = await response.json();
             console.log(data);
-            await fetchProfile();
+            // await fetchProfile();
         } else {
             console.log(response.status);
         }
@@ -108,11 +108,11 @@ export const CreateTask = () => {
 
                 <div className="col-md-3 border-right">
                     <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-                        <img
-                            className="rounded-circle mt-5" width="150px"
-                            src={image_src}
-                            alt="profile"/>
-                        <span className="font-weight-bold">{name === "" ? "Name" : name} {surname === "" ? "Surname" : surname}</span>
+                        {/*<img*/}
+                        {/*    className="rounded-circle mt-5" width="150px"*/}
+                        {/*    src={image_src}*/}
+                        {/*    alt="profile"/>*/}
+                        {/*<span className="font-weight-bold">{name === "" ? "Name" : name} {surname === "" ? "Surname" : surname}</span>*/}
                         <span className="text-black-50">{phone_number === "" ? "Phone number is not set" : phone_number}</span>
                     </div>
                 </div>
@@ -121,31 +121,7 @@ export const CreateTask = () => {
                         <div className="d-flex justify-content-between align-items-center mb-3">
                             <h4 className="text-right">Profile Settings</h4>
                         </div>
-                        <div className="row mt-2">
-                            <div className="col-md-6 d-flex flex-column align-items-start">
-                                <label className="labels">Name</label>
-                                <input
-                                    onChange={onChange}
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="First name"
-                                    value={name}
-                                    name="name"
-                                    required
-                                />
-                            </div>
-                            <div className="col-md-6 d-flex flex-column align-items-start">
-                                <label className="labels">Surname</label>
-                                <input
-                                    onChange={onChange}
-                                    type="text"
-                                    className="form-control"
-                                    value={surname}
-                                    placeholder="Surname"
-                                    name="surname"
-                                />
-                            </div>
-                        </div>
+
                         <div className="row mt-3">
                             <div className="col-md-12 d-flex flex-column align-items-start">
                                 <label className="labels">Title</label>
@@ -223,9 +199,9 @@ export const CreateTask = () => {
                             <textarea
                                 onChange={onChange}
                                 className="form-control"
-                                placeholder="Bio"
-                                value={bio}
-                                name="bio"
+                                placeholder="description of the task"
+                                value={desc}
+                                name="desc"
                                 rows="4" cols="30"/>
                         </div>
                         <br/>
@@ -234,10 +210,11 @@ export const CreateTask = () => {
                             <input
                                 onChange={onFileChange}
                                 type="file"
-                                name="profile_image"
+                                name="task_images"
                                 accept="image/*"
+                                multiple
                                 className="form-control"
-                                placeholder="profile image"
+                                placeholder="task images"
                             />
                         </div>
                     </div>
