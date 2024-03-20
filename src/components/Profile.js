@@ -1,5 +1,6 @@
 import {useAuth} from "../hooks/AuthProvider";
 import {useEffect, useState} from "react";
+import default_image from '../default.jpg';
 
 export const Profile = () => {
     const {BASE_URL, token, verifyToken} = useAuth();
@@ -54,10 +55,17 @@ export const Profile = () => {
             console.log(
                 data
             )
-            let src =BASE_URL + data.image;
-            if(BASE_URL[BASE_URL.length - 1] === '/'){
+
+            let src = BASE_URL + data.image;
+            if( BASE_URL === 'https://build-it-server.onrender.com/'){
                 src = BASE_URL.slice(0, -1) + data.image;
+                if (data.image.endsWith('default.jpg')) {
+                src = default_image;
             }
+            }
+
+
+
             setInputs({
                 ...inputs,
                 name: data.name,
