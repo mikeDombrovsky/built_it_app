@@ -10,6 +10,7 @@ import {ChangePassword} from "./components/ChangePassword";
 import {Profile} from "./components/Profile";
 import {Home} from "./components/Home";
 import {NavBar} from "./components/NavBar";
+import {CreateTask} from "./components/CreateTask";
 
 function App() {
     const {token} = useAuth();
@@ -25,7 +26,7 @@ function App() {
                     <Route path="/sign-up" element={!token ? <Sign_up/> : <Navigate to="/profile"/>}/>
                     <Route path="/change-password" element={<ChangePassword/>}/>
                     <Route path={'/tasks'} element={token ? <p className="m-5 p-5">tasks</p> : <Navigate to="/sign-in"/>}/>
-                    <Route path={'/create-task'} element={<p className="m-5 p-5">create task</p>}/>
+                    <Route path={'/create-task'} element={<CreateTask/>}/>
                     <Route path={'*'} element={<Navigate to="/"/>}/>
                 </Routes>
 

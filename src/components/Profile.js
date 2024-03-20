@@ -55,15 +55,15 @@ export const Profile = () => {
             console.log(
                 data
             )
-
+            // bug fix in render with extra slash in the end of the url
             let src = BASE_URL + data.image;
-            if( BASE_URL === 'https://build-it-server.onrender.com/'){
+            if (BASE_URL === 'https://build-it-server.onrender.com/') {
                 src = BASE_URL.slice(0, -1) + data.image;
+                // bug fix for default image that render may delete from server
                 if (data.image.endsWith('default.jpg')) {
-                src = default_image;
+                    src = default_image;
+                }
             }
-            }
-
 
 
             setInputs({
@@ -143,8 +143,10 @@ export const Profile = () => {
                             className="rounded-circle mt-5" width="150px"
                             src={image_src}
                             alt="profile"/>
-                        <span className="font-weight-bold">{name === "" ? "Name" : name} {surname === "" ? "Surname" : surname}</span>
-                        <span className="text-black-50">{phone_number === "" ? "Phone number is not set" : phone_number}</span>
+                        <span
+                            className="font-weight-bold">{name === "" ? "Name" : name} {surname === "" ? "Surname" : surname}</span>
+                        <span
+                            className="text-black-50">{phone_number === "" ? "Phone number is not set" : phone_number}</span>
                     </div>
                 </div>
                 <div className="col-md-5 border-right">

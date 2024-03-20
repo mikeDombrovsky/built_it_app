@@ -26,33 +26,33 @@ export const CreateTask = () => {
     } = inputs;
 
 
-    const fetchMyTasks = async () => {
-        let response = await fetch(BASE_URL + 'api/tasks/', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
-            }
-        })
-        if (response.status === 200) {
-            let data = await response.json();
-            console.log(
-                data
-            )
-            setInputs({
-                ...inputs,
-                title: data.title,
-                phone_number: data.phone_number,
-                city: data.city,
-                country: data.country,
-                state_region: data.state_region,
-                image_name: data.image,
-                image_src: BASE_URL + data.image,
-            })
-        } else {
-            console.log(response.status);
-        }
-    }
+    // const fetchMyTasks = async () => {
+    //     let response = await fetch(BASE_URL + 'api/tasks/', {
+    //         method: 'GET',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': 'Bearer ' + token
+    //         }
+    //     })
+    //     if (response.status === 200) {
+    //         let data = await response.json();
+    //         console.log(
+    //             data
+    //         )
+    //         setInputs({
+    //             ...inputs,
+    //             title: data.title,
+    //             phone_number: data.phone_number,
+    //             city: data.city,
+    //             country: data.country,
+    //             state_region: data.state_region,
+    //             image_name: data.image,
+    //             image_src: BASE_URL + data.image,
+    //         })
+    //     } else {
+    //         console.log(response.status);
+    //     }
+    // }
 
     const onChange = e => {
         setInputs({...inputs, [e.target.name]: e.target.value});
@@ -94,7 +94,7 @@ export const CreateTask = () => {
         if (response.status === 200) {
             let data = await response.json();
             console.log(data);
-            // await fetchProfile();
+
         } else {
             console.log(response.status);
         }
@@ -105,31 +105,29 @@ export const CreateTask = () => {
 
         <form onSubmit={onSubmit} className="container rounded bg-white mt-5 mb-5">
             <div className="row">
-
-                <div className="col-md-3 border-right">
-                    <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-                        {/*<img*/}
-                        {/*    className="rounded-circle mt-5" width="150px"*/}
-                        {/*    src={image_src}*/}
-                        {/*    alt="profile"/>*/}
-                        {/*<span className="font-weight-bold">{name === "" ? "Name" : name} {surname === "" ? "Surname" : surname}</span>*/}
-                        <span className="text-black-50">{phone_number === "" ? "Phone number is not set" : phone_number}</span>
+                <div className="col-md-5 border-right">
+                    <div className="pt-5 ps-3">
+                        <div className="d-flex flex-column align-items-start">
+                            <h4 className="text-right">Create new task</h4>
+                            <p className="text-start">Fill all places with information for constractor that will contact
+                                you with an offer.</p>
+                        </div>
                     </div>
                 </div>
+
+
+            </div>
+            <div className="row">
                 <div className="col-md-5 border-right">
                     <div className="p-3 py-5">
-                        <div className="d-flex justify-content-between align-items-center mb-3">
-                            <h4 className="text-right">Profile Settings</h4>
-                        </div>
-
-                        <div className="row mt-3">
+                        <div className="row">
                             <div className="col-md-12 d-flex flex-column align-items-start">
                                 <label className="labels">Title</label>
                                 <input
                                     onChange={onChange}
                                     type="text"
                                     className="form-control"
-                                    placeholder="Enter title of your profile if needed"
+                                    placeholder="Enter meaningful title of your task"
                                     value={title}
                                     name="title"
                                 />
@@ -153,7 +151,7 @@ export const CreateTask = () => {
                                     onChange={onChange}
                                     type="text"
                                     className="form-control"
-                                    placeholder="Enter your city"
+                                    placeholder="City where the task will take place"
                                     value={city}
                                     name="city"
                                 />
@@ -166,9 +164,9 @@ export const CreateTask = () => {
                                     onChange={onChange}
                                     type="text"
                                     className="form-control"
-                                    placeholder="country"
+                                    placeholder="Country"
                                     value={country}
-                                    name="country"
+                                    name="ountry"
                                 />
                             </div>
                             <div className="col-md-6 d-flex flex-column align-items-start">
@@ -178,35 +176,29 @@ export const CreateTask = () => {
                                     type="text"
                                     className="form-control"
                                     value={state_region}
-                                    placeholder="region"
+                                    placeholder="Region"
                                     name="state_region"
                                 />
                             </div>
                         </div>
-                        <div className="mt-5 text-center">
-                            <input type='submit' className="btn btn-primary profile-button" value="Save profile"/>
-                        </div>
+
                     </div>
                 </div>
                 <div className="col-md-4">
                     <div className="p-3 py-5">
-                        <div className="d-flex justify-content-between align-items-center experience mb-3">
-                            <h4 className="text-right">Details</h4>
-                        </div>
-
                         <div className="col-md-12 d-flex flex-column align-items-start">
-                            <label className="labels">Bio</label>
+                            <label className="labels">Description</label>
                             <textarea
                                 onChange={onChange}
                                 className="form-control"
-                                placeholder="description of the task"
+                                placeholder="Description of the task"
                                 value={desc}
                                 name="desc"
                                 rows="4" cols="30"/>
                         </div>
                         <br/>
                         <div className="col-md-12 d-flex flex-column align-items-start">
-                            <label className="labels">Profile image</label>
+                            <label className="labels">Images</label>
                             <input
                                 onChange={onFileChange}
                                 type="file"
@@ -219,8 +211,12 @@ export const CreateTask = () => {
                         </div>
                     </div>
                 </div>
-                <p>*To become a builder you need to fill all these fields for verification. For clients it's not
-                    required but highly recommended</p>
+
+            </div>
+            <div className="row">
+               <div className="col m-5 text-center">
+                    <input type='submit' className="btn btn-primary profile-button" value="Save Task"/>
+                </div>
             </div>
         </form>
     )
