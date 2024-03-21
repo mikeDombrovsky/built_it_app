@@ -60,6 +60,8 @@ export const Profile = () => {
             if (BASE_URL === 'https://build-it-server.onrender.com/') {
                 src = BASE_URL.slice(0, -1) + data.image;
                 // bug fix for default image that render may delete from server
+                // TODO
+                // fix bug with removing images from server, they might be saved in the cookies
                 if (data.image.endsWith('default.jpg')) {
                     src = default_image;
                 }
@@ -73,8 +75,8 @@ export const Profile = () => {
                 title: data.title,
                 phone_number: data.phone_number,
                 city: data.city,
-                country: data.country,
-                state_region: data.state_region,
+                address: data.country,
+                category: data.state_region,
                 bio: data.bio,
                 image_name: data.image,
                 image_src: src,

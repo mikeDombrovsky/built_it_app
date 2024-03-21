@@ -6,11 +6,14 @@ export const CreateTask = () => {
 
     const [inputs, setInputs] = useState({
         title: '',
-        phone_number: '',
-        city: '',
-        country: '',
-        state_region: '',
         desc: '',
+        category: '',
+        budget: '',
+        start_date: '',
+        end_date: '',
+        city: '',
+        address: '',
+        phone_number: '',
         image_srcs: [],
         task_images: []
     })
@@ -19,8 +22,8 @@ export const CreateTask = () => {
         title,
         phone_number,
         city,
-        country,
-        state_region,
+        address,
+        category,
         desc,
         task_images
     } = inputs;
@@ -78,10 +81,10 @@ export const CreateTask = () => {
 
         formData.append('title', title);
         formData.append('phone_number', phone_number);
-        formData.append('city', city);
-        formData.append('country', country);
-        formData.append('state_region', state_region);
-        formData.append('desc', desc);
+        formData.append('address', city + ', ' + address);
+        formData.append('budget', budget);
+        formData.append('category', category);
+        formData.append('description', desc);
         console.log(formData);
 
         let response = await fetch(BASE_URL + 'api/task/', {
@@ -159,26 +162,32 @@ export const CreateTask = () => {
                         </div>
                         <div className="row mt-3">
                             <div className="col-md-6 d-flex flex-column align-items-start">
-                                <label className="labels">Country</label>
+                                <label className="labels">Address</label>
                                 <input
                                     onChange={onChange}
                                     type="text"
                                     className="form-control"
-                                    placeholder="Country"
-                                    value={country}
+                                    placeholder="Wall street 1"
+                                    value={address}
                                     name="ountry"
                                 />
                             </div>
                             <div className="col-md-6 d-flex flex-column align-items-start">
-                                <label className="labels">Region</label>
-                                <input
+                                <label className="labels">Category</label>
+                                <select
                                     onChange={onChange}
-                                    type="text"
                                     className="form-control"
-                                    value={state_region}
-                                    placeholder="Region"
-                                    name="state_region"
-                                />
+                                    value={category}
+                                    name="category"
+                                >
+                                    <option value="1">Select category</option>
+                                    <option value="2">Laying of tiles</option>
+                                    <option value="3">Wall painting</option>
+                                    <option value="4">Electricity</option>
+                                    <option value="5">Carpentry</option>
+                                    <option value="6">bricklaying</option>
+                                    <option value="7">Sewage</option>
+                                </select>
                             </div>
                         </div>
 
