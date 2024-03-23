@@ -67,7 +67,7 @@ export const CreateTask = () => {
     const onFileChange = e => {
         setInputs({
             ...inputs,
-            image_files: e.target.files
+            task_images: e.target.files
         });
         console.log('files ', e.target.files);
     }
@@ -86,12 +86,14 @@ export const CreateTask = () => {
         formData.append('phone_number', phone_number);
         formData.append('address', city + ', ' + address);
         formData.append('budget', budget);
+        formData.append('start_date', start_date);
+        formData.append('end_date', end_date);
         formData.append('category', category);
         formData.append('description', desc);
         console.log(formData.toString());
 
         let response = await fetch(BASE_URL + 'api/task/', {
-            method: 'PUT',
+            method: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + token,
             },
