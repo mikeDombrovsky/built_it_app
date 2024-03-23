@@ -12,7 +12,7 @@ const AuthProvider = ({children}) => {
 
     const register = async (username = null, email, password) => {
         try {
-            const response = await fetch(BASE_URL + 'api/register/', {
+            const response = await fetch(BASE_URL + '/api/register/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ const AuthProvider = ({children}) => {
 
     const logIn = async (email, password) => {
         try {
-            const response = await fetch(BASE_URL + 'api/token/', {
+            const response = await fetch(BASE_URL + '/api/token/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ const AuthProvider = ({children}) => {
 
     const verifyToken = async () => {
         try {
-            const response = await fetch(BASE_URL + 'api/token/verify/', {
+            const response = await fetch(BASE_URL + '/api/token/verify/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ const AuthProvider = ({children}) => {
         if (!Cookies.get('refresh')) {
             return console.log('no refresh token found');
         }
-        fetch(BASE_URL + 'api/token/refresh/', {
+        fetch(BASE_URL + '/api/token/refresh/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ const AuthProvider = ({children}) => {
     }
 
     const logOut = () => {
-        fetch(BASE_URL + 'api/token/logout/', {
+        fetch(BASE_URL + '/api/token/logout/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

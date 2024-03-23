@@ -11,6 +11,7 @@ import {Profile} from "./components/Profile";
 import {Home} from "./components/Home";
 import {NavBar} from "./components/NavBar";
 import {CreateTask} from "./components/CreateTask";
+import {Tasks} from "./components/Tasks";
 
 function App() {
     const {token} = useAuth();
@@ -25,7 +26,7 @@ function App() {
                     <Route path="/sign-in" element={!token ? <Sign_In/> : <Navigate to="/profile"/>}/>
                     <Route path="/sign-up" element={!token ? <Sign_up/> : <Navigate to="/profile"/>}/>
                     <Route path="/change-password" element={<ChangePassword/>}/>
-                    <Route path={'/tasks'} element={token ? <p className="m-5 p-5">tasks</p> : <Navigate to="/sign-in"/>}/>
+                    <Route path={'/tasks'} element={token ? <Tasks/> : <Navigate to="/sign-in"/>}/>
                     <Route path={'/create-task'} element={<CreateTask/>}/>
                     <Route path={'*'} element={<Navigate to="/"/>}/>
                 </Routes>

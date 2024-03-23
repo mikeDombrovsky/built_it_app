@@ -15,7 +15,7 @@ export const CreateTask = () => {
         address: '',
         phone_number: '',
         image_srcs: [],
-        task_images: []
+        task_image: null
     })
 
     const {
@@ -28,58 +28,35 @@ export const CreateTask = () => {
         start_date,
         end_date,
         desc,
-        task_images
+        task_image
     } = inputs;
 
 
-    // const fetchMyTasks = async () => {
-    //     let response = await fetch(BASE_URL + 'api/tasks/', {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': 'Bearer ' + token
-    //         }
-    //     })
-    //     if (response.status === 200) {
-    //         let data = await response.json();
-    //         console.log(
-    //             data
-    //         )
-    //         setInputs({
-    //             ...inputs,
-    //             title: data.title,
-    //             phone_number: data.phone_number,
-    //             city: data.city,
-    //             country: data.country,
-    //             state_region: data.state_region,
-    //             image_name: data.image,
-    //             image_src: BASE_URL + data.image,
-    //         })
-    //     } else {
-    //         console.log(response.status);
-    //     }
-    // }
-
     const onChange = e => {
+        if (e.target.name === 'phone_number') {
+            if ( e.target.value.match('[0-9]{10}') ) {
+                    e.target.value = e.target.value.slice(0, 3) +
+                        '-' + e.target.value.slice(3, 6) +
+                        '-' + e.target.value.slice(6);
+            }
+        }
         setInputs({...inputs, [e.target.name]: e.target.value});
     }
 
     const onFileChange = e => {
         setInputs({
             ...inputs,
-            task_images: e.target.files
+            task_image: e.target.files[0]
         });
-        console.log('files ', e.target.files);
+        console.log('file ', e.target.files[0]);
     }
 
     const onSubmit = async e => {
         e.preventDefault();
         console.log(inputs);
         const formData = new FormData();
-        if (task_images) {
-            for (let i = 0; i < task_images.length; i++) {
-                formData.append('attachments[]', task_images[i],);
-            }
+        if (task_image) {
+            formData.append('image', task_image);
         }
 
         formData.append('title', title);
@@ -92,16 +69,30 @@ export const CreateTask = () => {
         formData.append('description', desc);
         console.log(formData.toString());
 
-        let response = await fetch(BASE_URL + 'api/task/', {
+        let response = await fetch(BASE_URL + '/api/task/', {
             method: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + token,
             },
             body: formData
         })
-        if (response.status === 200) {
+        if (response.ok) {
             let data = await response.json();
             console.log(data);
+            alert('Task created successfully')
+            setInputs({
+                title: '',
+                desc: '',
+                category: '',
+                budget: '',
+                start_date: '',
+                end_date: '',
+                city: '',
+                address: '',
+                phone_number: '',
+                image_srcs: [],
+                task_images: []
+            })
 
         } else {
             console.log(response.status);
@@ -129,7 +120,7 @@ export const CreateTask = () => {
                     <div className="p-3 py-5">
                         <div className="row">
                             <div className="col-md-12 d-flex flex-column align-items-start">
-                                <label className="labels">Title</label>
+                                <label className="labels">Title<span className='text-danger'>*</span></label>
                                 <input
                                     onChange={onChange}
                                     type="text"
@@ -137,15 +128,16 @@ export const CreateTask = () => {
                                     placeholder="Enter meaningful title of your task"
                                     value={title}
                                     name="title"
+                                    required
                                 />
                             </div>
 
                             <div className="col-md-12 d-flex flex-column align-items-start">
-                                <label className="labels">Phone number</label>
+                                <label className="labels">Phone number<span className='text-danger'>*</span></label>
                                 <input
                                     onChange={onChange}
                                     type="tel"
-                                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}|[0-9]{10}"
                                     className="form-control"
                                     placeholder="Enter phone number like 058-456-7890"
                                     value={phone_number}
@@ -256,19 +248,24 @@ export const CreateTask = () => {
                         </div>
                         <br/>
                         <div className="col-md-12 d-flex flex-column align-items-start">
-                            <label className="labels">Images</label>
+                            <label className="labels">Image</label>
                             <input
                                 onChange={onFileChange}
                                 type="file"
-                                name="task_images"
+                                name="task_image"
                                 accept="image/*"
-                                multiple
+                                // multiple
                                 className="form-control"
-                                placeholder="task images"
+                                placeholder="task image"
                             />
                         </div>
                     </div>
+                    {
+                        //TODO: add multiple images upload in input task_image above
+                        //TODO: minor feature add images preview
+                    }
                 </div>
+
 
             </div>
             <div className="row">

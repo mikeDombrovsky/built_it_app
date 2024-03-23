@@ -43,7 +43,7 @@ export const Profile = () => {
     }, []);
 
     const fetchProfile = async () => {
-        let response = await fetch(BASE_URL + 'api/profile/', {
+        let response = await fetch(BASE_URL + '/api/profile/', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
