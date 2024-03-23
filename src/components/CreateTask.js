@@ -24,6 +24,9 @@ export const CreateTask = () => {
         city,
         address,
         category,
+        budget,
+        start_date,
+        end_date,
         desc,
         task_images
     } = inputs;
@@ -75,7 +78,7 @@ export const CreateTask = () => {
         const formData = new FormData();
         if (task_images) {
             for (let i = 0; i < task_images.length; i++) {
-                formData.append('image', task_images[i]);
+                formData.append('attachments[]', task_images[i],);
             }
         }
 
@@ -85,7 +88,7 @@ export const CreateTask = () => {
         formData.append('budget', budget);
         formData.append('category', category);
         formData.append('description', desc);
-        console.log(formData);
+        console.log(formData.toString());
 
         let response = await fetch(BASE_URL + 'api/task/', {
             method: 'PUT',
@@ -101,7 +104,6 @@ export const CreateTask = () => {
         } else {
             console.log(response.status);
         }
-
     }
 
     return (
@@ -135,6 +137,7 @@ export const CreateTask = () => {
                                     name="title"
                                 />
                             </div>
+
                             <div className="col-md-12 d-flex flex-column align-items-start">
                                 <label className="labels">Phone number</label>
                                 <input
@@ -148,6 +151,7 @@ export const CreateTask = () => {
                                     required
                                 />
                             </div>
+
                             <div className="col-md-12 d-flex flex-column align-items-start">
                                 <label className="labels">City</label>
                                 <input
@@ -159,6 +163,7 @@ export const CreateTask = () => {
                                     name="city"
                                 />
                             </div>
+
                         </div>
                         <div className="row mt-3">
                             <div className="col-md-6 d-flex flex-column align-items-start">
@@ -169,7 +174,7 @@ export const CreateTask = () => {
                                     className="form-control"
                                     placeholder="Wall street 1"
                                     value={address}
-                                    name="ountry"
+                                    name="address"
                                 />
                             </div>
                             <div className="col-md-6 d-flex flex-column align-items-start">
@@ -180,21 +185,63 @@ export const CreateTask = () => {
                                     value={category}
                                     name="category"
                                 >
-                                    <option value="1">Select category</option>
-                                    <option value="2">Laying of tiles</option>
-                                    <option value="3">Wall painting</option>
-                                    <option value="4">Electricity</option>
-                                    <option value="5">Carpentry</option>
-                                    <option value="6">bricklaying</option>
-                                    <option value="7">Sewage</option>
+                                    <option value="null">Select category</option>
+                                    <option value="tiles">Laying of tiles</option>
+                                    <option value="painting">Wall painting</option>
+                                    <option value="electricity">Electricity</option>
+                                    <option value="carpentry">Carpentry</option>
+                                    <option value="bricklaying">Bricklaying</option>
+                                    <option value="sewage">Sewage</option>
                                 </select>
                             </div>
                         </div>
+                        <div className="row mt-3">
+                            <div className="col-md-6 d-flex flex-column align-items-start">
+                                <label className="labels">Start date</label>
+                                <input
+                                    onChange={onChange}
+                                    type="date"
+                                    className="form-control"
+                                    // placeholder="Wall street 1"
+                                    value={start_date}
+                                    name="start_date"
+                                />
+                            </div>
+                            <div className="col-md-6 d-flex flex-column align-items-start">
+                                <label className="labels">End date</label>
+                                <input
+                                    onChange={onChange}
+                                    type="date"
+                                    className="form-control"
+                                    // placeholder="Wall street 1"
+                                    value={end_date}
+                                    name="end_date"
+                                />
+                            </div>
+                        </div>
+
 
                     </div>
                 </div>
                 <div className="col-md-4">
                     <div className="p-3 py-5">
+                        <div className="col-md-12 d-flex flex-column align-items-start">
+                            <label className="labels">Budget</label>
+                            <select
+                                onChange={onChange}
+                                className="form-control"
+                                value={budget}
+                                name="budget"
+                            >
+                                <option value="null">Select budget</option>
+                                <option value="500">less then ₪500</option>
+                                <option value="1000">between ₪500 and ₪1000</option>
+                                <option value="10000">between ₪1000 and ₪10.000</option>
+                                <option value="50000">between ₪10.000 and ₪50.000</option>
+                                <option value="50001">more then ₪50.000</option>
+                            </select>
+                        </div>
+                        <br/>
                         <div className="col-md-12 d-flex flex-column align-items-start">
                             <label className="labels">Description</label>
                             <textarea
@@ -223,7 +270,7 @@ export const CreateTask = () => {
 
             </div>
             <div className="row">
-               <div className="col m-5 text-center">
+                <div className="col m-5 text-center">
                     <input type='submit' className="btn btn-primary profile-button" value="Save Task"/>
                 </div>
             </div>

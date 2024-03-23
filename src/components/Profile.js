@@ -56,7 +56,11 @@ export const Profile = () => {
                 data
             )
             // bug fix in render with extra slash in the end of the url
-            let src = BASE_URL + data.image;
+            let src;
+            if(data.image.startsWith('/')){
+                 data.image = data.image.slice(1);
+            }
+            src = BASE_URL + data.image;
             if (BASE_URL === 'https://build-it-server.onrender.com/') {
                 src = BASE_URL.slice(0, -1) + data.image;
                 // bug fix for default image that render may delete from server
