@@ -21,7 +21,7 @@ export const Tasks = () => {
 
 
     return (
-        <div className="container rounded mt-5 mb-5">
+        <div className="container rounded mt-5 mb-5 min-vh-80">
             <div className="row">
                 {tasks.map(task => (
                     <div className="col-sm-3" key={task.id}>
@@ -35,6 +35,9 @@ export const Tasks = () => {
                         </div>
                     </div>
                 ))}
+                {
+                    tasks.length === 0 ? <h1 className='text-white mt-5'>Loading...</h1> : ''
+                }
             </div>
         </div>
     );

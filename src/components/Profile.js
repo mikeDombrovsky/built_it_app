@@ -15,7 +15,7 @@ export const Profile = () => {
         state_region: '',
         bio: '',
         image_name: 'default.jpg',
-        image_src: BASE_URL + 'media/profile_pics/default.jpg',
+        image_src: BASE_URL + '/media/profile_pics/default.jpg',
         image_file: null
     })
 
@@ -56,11 +56,7 @@ export const Profile = () => {
                 data
             )
             // bug fix in render with extra slash in the end of the url
-            let src;
-            if(data.image.startsWith('/')){
-                 data.image = data.image.slice(1);
-            }
-            src = BASE_URL + data.image;
+            let src = BASE_URL + data.image;
             if (BASE_URL === 'https://build-it-server.onrender.com/') {
                 src = BASE_URL.slice(0, -1) + data.image;
                 // bug fix for default image that render may delete from server
@@ -92,6 +88,14 @@ export const Profile = () => {
     }
 
     const onChange = e => {
+       if (e.target.name === 'phone_number') {
+            if ( e.target.value.match('[0-9]{10}') ) {
+                    e.target.value = e.target.value.slice(0, 3) +
+                        '-' + e.target.value.slice(3, 6) +
+                        '-' + e.target.value.slice(6);
+            }
+        }
+
         setInputs({...inputs, [e.target.name]: e.target.value});
     }
 
@@ -121,7 +125,7 @@ export const Profile = () => {
         formData.append('bio', bio);
         console.log(formData);
 
-        let response = await fetch(BASE_URL + 'api/profile/', {
+        let response = await fetch(BASE_URL + '/api/profile/', {
             method: 'PUT',
             headers: {
                 'Authorization': 'Bearer ' + token,
