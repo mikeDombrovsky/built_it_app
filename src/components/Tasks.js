@@ -26,7 +26,7 @@ export const Tasks = () => {
 
                     <div className="col-sm-3" key={task.id}>
                         <div className="card">
-                            <img className="card-img-top" src={task.image ? BASE_URL +  task.image : BASE_URL + '/media/no_image'} alt="Card image cap"/>
+                            <img className="card-img-top" src={task.image ? BASE_URL +  task.image : BASE_URL + '/media/no_image.jpg'} alt="Card image cap"/>
                             <div className="card-body">
                                 <h5 className="card-title">{task.title}</h5>
                                 <p className="card-text">{task.description}</p>
