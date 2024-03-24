@@ -20,25 +20,25 @@ export const Tasks = () => {
     }, []);
 
 
-    return (
-        <div className="container rounded mt-5 mb-5 min-vh-80">
+    return (<div className="container rounded mt-5 mb-5 min-vh-80">
             <div className="row">
                 {tasks.map(task => (
+
                     <div className="col-sm-3" key={task.id}>
                         <div className="card">
                             <img className="card-img-top" src={BASE_URL + task.image} alt="Card image cap"/>
                             <div className="card-body">
                                 <h5 className="card-title">{task.title}</h5>
                                 <p className="card-text">{task.description}</p>
+                                { !task.budget ? "" : <p className="card-text text-start">Budget: ₪{task.budget}</p>}
+                                <p className="card-text text-start">Address: {task.address}</p>
+                                { !task.start_date || task.start_date === "" ? "" : <p className="card-text text-start">Start date: {task.start_date.slice(0,10)}</p>}
+                                { !task.end_date || task.end_date === "" ? "" : <p className="card-text text-start">End date: {task.end_date.slice(0,10)}</p>}
                                 <a href="#" className="btn btn-primary">see details</a>
                             </div>
                         </div>
-                    </div>
-                ))}
-                {
-                    tasks.length === 0 ? <h1 className='text-white mt-5'>Loading...</h1> : ''
-                }
+                    </div>))}
+                {tasks.length === 0 ? <h1 className='text-white mt-5'>Loading...</h1> : ''}
             </div>
-        </div>
-    );
+        </div>);
 }
