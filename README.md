@@ -1,13 +1,10 @@
 # Build it 
 
-Server is running [here](https://localhost:8080).
-App is running [here](https://localhost:3000).
+Server is running [here](https://build-it-server.onrender.com).
+App is running [here](https://built-it-app.onrender.com).
 
 ## Some info
 
-info block
-
-
-### More info
-This section is here: [google.com](https://google.com)
+This app is my final project in my school, developers.institute
+The Idea was to connect construction workers with their clients
 
