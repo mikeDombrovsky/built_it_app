@@ -27,7 +27,7 @@ function App() {
                     <Route path="/sign-up" element={!token ? <Sign_up/> : <Navigate to="/profile"/>}/>
                     <Route path="/change-password" element={<ChangePassword/>}/>
                     <Route path={'/tasks'} element={token ? <Tasks/> : <Navigate to="/sign-in"/>}/>
-                    <Route path={'/create-task'} element={<CreateTask/>}/>
+                    <Route path={'/create-task'} element={token ? <CreateTask/> : <Navigate to="/sign-in"/>}/>
                     <Route path={'*'} element={<Navigate to="/"/>}/>
                 </Routes>
 

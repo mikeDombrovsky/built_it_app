@@ -18,18 +18,16 @@ export const NavBar = () => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav">
-                            <>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to={'/create-task'}>
-                                        Find a contractor
-                                    </Link>
-                                </li>
-                            </>
                             {token ? (
                                 <>
                                     <li className="nav-item">
                                         <Link className="nav-link " to={'/profile'}>
-                                        Profile
+                                            Profile
+                                        </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to={'/create-task'}>
+                                            Find a contractor
                                         </Link>
                                     </li>
                                     <li className="nav-item">
