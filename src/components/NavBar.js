@@ -20,21 +20,21 @@ export const NavBar = () => {
                         <ul className="navbar-nav">
                             <>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to={'/tasks'}>
-                                        Find a client
+                                    <Link className="nav-link" to={'/create-task'}>
+                                        Find a contractor
                                     </Link>
                                 </li>
                             </>
                             {token ? (
                                 <>
                                     <li className="nav-item">
-                                        <Link className="nav-link" to={'/create-task'}>
-                                            Find a contractor
+                                        <Link className="nav-link " to={'/profile'}>
+                                        Profile
                                         </Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link " to={'/profile'}>
-                                            Profile
+                                        <Link className="nav-link" to={'/tasks'}>
+                                            Find a client
                                         </Link>
                                     </li>
                                     <li className="nav-item align-self-end">
@@ -45,7 +45,7 @@ export const NavBar = () => {
                                 <>
                                     <li className="nav-item">
                                         <Link className="nav-link" to={'/sign-in'}>
-                                            Sign in
+                                        Sign in
                                         </Link>
                                     </li>
                                     <li className="nav-item">

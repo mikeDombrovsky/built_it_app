@@ -1,4 +1,6 @@
 import worker_img from '../pexels-anamul-rezwan-1216544.jpg'
+import {Link} from "react-router-dom";
+
 export const Home = () => {
     return (
         <div className="container rounded bg-white mt-5 pt-3 mb-5">
@@ -8,15 +10,13 @@ export const Home = () => {
                         <h1>We will make your life much easier!</h1>
                         <p>Just make a task and we will help you to find the best construction professional for your
                             personal needs.</p>
-                        <form className="form-inline d-flex flex-row m-2">
-                            <input className="form-control mr-sm-2" type="search" placeholder="Service or professional"
-                                   aria-label="Search"/>
-                                <button className="btn btn-outline-success m-2 my-sm-0" type="submit">Search</button>
-                        </form>
-                        <img className="rounded w-100"  src={worker_img} alt='construction worker'/>
+
+                        <Link className="btn btn-outline-success m-3" to='/create-task'>Create task</Link>
+
+                        <img className="rounded w-100 " src={worker_img} alt='construction worker'/>
                     </div>
                 </div>
             </div>
         </div>
-)
+    )
 }
