@@ -11,7 +11,7 @@ export const Home = () => {
                         <p>Just make a task and we will help you to find the best construction professional for your
                             personal needs.</p>
 
-                        <Link className="btn btn-outline-success m-3" to='/create-task'>Create task</Link>
+                        <Link className="btn btn-outline-success m-3" to='/create-task'>Create a new task</Link>
 
                         <img className="rounded w-100 " src={worker_img} alt='construction worker'/>
                     </div>
